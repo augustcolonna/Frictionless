@@ -1,5 +1,5 @@
 import { auth } from "../firebase/firebaseconfig";
-import { useAuthContext } from "../hooks/useAuthContext";
+import useAuthContext from "./useAuthContext";
 import { signOut } from "firebase/auth";
 
 function useLogOut() {

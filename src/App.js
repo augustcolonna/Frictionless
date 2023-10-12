@@ -1,26 +1,25 @@
-import { useAuthContext } from "../hooks/useAuthContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Routes, Route } from "react-router-dom";
 import Signin from "./pages/Singin";
 import Signup from "./pages/Signup";
-import Home from "./pages/Home";
+import Create from "./pages/Create";
+import Dashbord from "./pages/Dashbord";
+import Project from "./pages/Project";
 
-import "./App.css";
+import "./styles/App.css";
 
 function App() {
-  const { user, authIsReady } = useAuthContext();
-
   return (
     <div className="App">
-      {authIsReady && (
-        <AuthContextProvider>
-          <Routes>
-            <Route path="/signin"> {!user && <Signin />}</Route>
-            <Route path="/singup">{!user && <Signup />}</Route>
-            <Route path="/">{user && <Home />}</Route>
-          </Routes>
-        </AuthContextProvider>
-      )}
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/signin" element=<Signin />></Route>
+          <Route path="/signup" element=<Signup />></Route>
+          <Route path="/create" element=<Create />></Route>
+          <Route path="/" element=<Dashbord />></Route>
+          <Route path="/project/:id" element=<Project />></Route>
+        </Routes>
+      </AuthContextProvider>
     </div>
   );
 }

@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { db } from "../firebase/firebaseconfig";
 //firebase imports
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
 
-function useCollection(anyCollection) {
+function useCollection(anyCollection, _q) {
   const [documents, setDocuments] = useState(null);
+
+  //set up query
+  const q = useRef(_q).current;
 
   useEffect(() => {
     //using "anyCollection" as a placeholder for the collection name
     let ref = collection(db, anyCollection);
+
+    if (q) {
+      ref = query(ref, where(...q));
+    }
 
     const unsubscribe = onSnapshot(ref, (snapshot) => {
       let results = [];
@@ -19,7 +26,7 @@ function useCollection(anyCollection) {
     });
 
     return () => unsubscribe();
-  }, [anyCollection]);
+  }, [anyCollection, q]);
 
   return { documents };
 }

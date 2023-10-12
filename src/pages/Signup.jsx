@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useSignUp } from "../hooks/useSignUp";
+import useSignUp from "../hooks/useSignUp";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ function Signup() {
     e.preventDefault();
     signUp(email, password);
   };
-  return <div>{error && <p>{error}</p>}</div>;
+  return <div>SignUp{error && <p>{error}</p>}</div>;
 }
 //put error at bottom of form
 export default Signup;
