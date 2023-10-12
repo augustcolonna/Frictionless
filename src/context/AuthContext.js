@@ -1,65 +1,40 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  updateProfile,
-} from "firebase/auth";
+import { createContext, useReducer, useEffect } from "react";
+import { auth } from "../firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
 
-import { auth } from "../firebaseconfig";
+export const AuthContext = createContext();
 
-const UserContext = createContext();
-
-export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
-
-  const createUser = async (email, password, displayName) => {
-    await createUserWithEmailAndPassword(auth, email, password);
-
-    updateProfile(auth.currentUser, {
-      displayName: displayName,
-    })
-      .then(() => {
-        console.log("user created");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const signIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const logout = () => {
-    return signOut(auth);
-  };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-      setUser(currentUser);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  return (
-    <UserContext.Provider
-      value={{
-        createUser,
-        user,
-        logout,
-        signIn,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
-  );
+export const authReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, user: action.payload };
+    case "LOGOUT":
+      return { ...state, user: null };
+    case "AUTH_IS_READY":
+      return { user: action.payload, authIsReady: true };
+    default:
+      return state;
+  }
 };
 
-export const UserAuth = () => {
-  return useContext(UserContext);
+export const AuthContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, {
+    user: null,
+    authIsReady: false,
+  });
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      dispatch({ type: "AUTH_IS_READY", payload: user });
+      unsub();
+    });
+  }, []);
+
+  console.log("AuthContext state:", state);
+
+  return (
+    <AuthContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
