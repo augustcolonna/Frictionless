@@ -1,19 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
+import { useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [displayName, setDisplayName] = useState("");
+  const navigate = useNavigate();
+  const [displayName, setDisplayName] = useState("");
   // const [thumbnail, setThumbnail] = useState(null);
   // const [thumbnailError, setThumbnailError] = useState(null);
-  const { error, signUp } = useSignUp();
+  const { error, signUp, isPending } = useSignUp();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUp(email, password);
+    signUp(email, password, displayName);
+    navigate("/signin");
   };
 
   // const handleFileChange = (e) => {
@@ -60,7 +63,7 @@ function Signup() {
             value={password}
           />
         </label>
-        {/* <label>
+        <label>
           <span>Display Name</span>
           <input
             required
@@ -68,13 +71,18 @@ function Signup() {
             onChange={(e) => setDisplayName(e.target.value)}
             value={displayName}
           />
-        </label> */}
+        </label>
         {/* <label>
           <span>Profile Picture</span>
           <input required type="file" onChange={handleFileChange} />
           {thumbnailError && <div className="error">{thumbnailError}</div>}
         </label> */}
-        <button className="btn">Sign Up</button>
+        {!isPending && <button className="btn">Sign Up</button>}
+        {isPending && (
+          <button className="btn" disabled>
+            Creating Profile
+          </button>
+        )}
         {error && <p className="error">{error}</p>}
       </form>
     </div>

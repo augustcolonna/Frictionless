@@ -1,8 +1,11 @@
 import Temple from "../assets/temple.svg";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
+import { useLogOut } from "../hooks/useLogOut";
 
 function Navbar() {
+  const { logout } = useLogOut();
+
   return (
     <div className="navbar">
       <ul>
@@ -11,13 +14,15 @@ function Navbar() {
           <span>The Dojo</span>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <Link to="/signin">Login</Link>
         </li>
         <li>
           <Link to="/signup">Signup</Link>
         </li>
         <li>
-          <button className="btn">Logout</button>
+          <button className="btn" onClick={logout}>
+            Logout
+          </button>
         </li>
       </ul>
     </div>

@@ -1,34 +1,36 @@
 import { useState } from "react";
-import useAuthContext from "./useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { auth } from "../firebase/firebaseconfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export const useSignUp = () => {
   const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const signUp = (email, password, displayName) => {
+  const signUp = async (email, password, displayName) => {
     setError(null);
-    createUserWithEmailAndPassword(auth, email, password)
-      //upload user profile picture
-      // const uploadPath = `thumbnails/${auth.user.uid}/${thumbnail.name}`;
-      // const img = await storage.ref(uploadPath).put(thumbnail);
-      // const imgUrl = await img.ref.getDownloadURL();
-      // updateProfile(auth.user, {
-      //   displayName: displayName,
-      //   // photoURL: imgUrl,
-      // })
-
+    setIsPending(true);
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         dispatch({ type: "LOGIN", paylod: res.user });
         console.log(res.user);
+        //upload user profile picture
+        // const uploadPath = `thumbnails/${auth.uid}/${thumbnail.name}`;
+        // const img = storage.ref(uploadPath).put(thumbnail);
+        // const imgUrl = img.ref.getDownloadURL();
+        updateProfile(res.user, {
+          displayName: displayName,
+          // photoURL: imgUrl,
+        });
       })
-      .then()
       .catch((error) => {
+        setError(error.message);
+        setIsPending(false);
         console.log(error);
       });
   };
-  return { error, signUp };
+  return { error, signUp, isPending };
 };
 
 //import this into the signup page

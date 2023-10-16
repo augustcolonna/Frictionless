@@ -1,5 +1,5 @@
 import { auth } from "../firebase/firebaseconfig";
-import useAuthContext from "./useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { signOut } from "firebase/auth";
 
 export const useLogOut = () => {
