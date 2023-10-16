@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { auth } from "../firebase/firebaseconfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-function useLogIn() {
+export const useLogIn = () => {
   const [error, setError] = useState(null);
   const { dispatch } = useAuthContext();
 
@@ -19,9 +19,8 @@ function useLogIn() {
   };
 
   return { error, login };
-}
+};
 
-export default useLogIn;
 //import hook to login page
 // const {error, login} = useLogin()
 //use this in handlesubmit function onSubmit in form

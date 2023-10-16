@@ -3,7 +3,7 @@ import { db } from "../firebase/firebaseconfig";
 //firebase imports
 import { onSnapshot, collection, query, where } from "firebase/firestore";
 
-function useCollection(anyCollection, _q) {
+export const useCollection = (anyCollection, _q) => {
   const [documents, setDocuments] = useState(null);
 
   //set up query
@@ -29,6 +29,4 @@ function useCollection(anyCollection, _q) {
   }, [anyCollection, q]);
 
   return { documents };
-}
-
-export default useCollection;
+};

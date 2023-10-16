@@ -2,7 +2,7 @@ import { auth } from "../firebase/firebaseconfig";
 import useAuthContext from "./useAuthContext";
 import { signOut } from "firebase/auth";
 
-function useLogOut() {
+export const useLogOut = () => {
   const { dispatch } = useAuthContext();
   const logout = () => {
     signOut(auth)
@@ -15,9 +15,7 @@ function useLogOut() {
   };
 
   return { logout };
-}
-
-export default useLogOut;
+};
 
 //import this hook into the page where you will be logging out
 // const { logout } = useLogOut(); in the function then use it as a onClick event
