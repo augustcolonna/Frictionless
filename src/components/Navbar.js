@@ -4,7 +4,7 @@ import "../styles/navbar.css";
 import { useLogOut } from "../hooks/useLogOut";
 
 function Navbar() {
-  const { logout } = useLogOut();
+  const { logout, isPending } = useLogOut();
 
   return (
     <div className="navbar">
@@ -20,9 +20,16 @@ function Navbar() {
           <Link to="/signup">Signup</Link>
         </li>
         <li>
-          <button className="btn" onClick={logout}>
-            Logout
-          </button>
+          {!isPending && (
+            <button className="btn" onClick={logout}>
+              Logout
+            </button>
+          )}
+          {isPending && (
+            <button className="btn" disabled>
+              Logging Out...
+            </button>
+          )}
         </li>
       </ul>
     </div>

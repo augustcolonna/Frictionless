@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Singin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const { login } = useLogIn();
