@@ -1,20 +1,20 @@
-import React from "react";
-import { useState } from "react";
-import { useLogIn } from "../hooks/useLogIn";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useState } from 'react';
+import { useLogIn } from '../hooks/useLogIn';
+import { useNavigate } from 'react-router-dom';
 
 function Singin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const { login } = useLogIn();
+  const { login, isPending, error } = useLogIn();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -39,7 +39,9 @@ function Singin() {
             value={password}
           />
         </label>
-        <button className="btn">Sign In</button>
+        {!isPending && <button className="btn">Sign In</button>}
+        {isPending && <button className="btn">Signing In...</button>}
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

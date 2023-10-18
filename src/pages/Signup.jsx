@@ -1,14 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import { useSignUp } from "../hooks/useSignUp";
-import { useNavigate } from "react-router-dom";
-import "../styles/signup.css";
+import React from 'react';
+import { useState } from 'react';
+import { useSignUp } from '../hooks/useSignUp';
+import { useNavigate } from 'react-router-dom';
+import '../styles/signup.css';
 
 function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useState('');
   // const [thumbnail, setThumbnail] = useState(null);
   // const [thumbnailError, setThumbnailError] = useState(null);
   const { error, signUp, isPending } = useSignUp();
@@ -16,7 +16,7 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(email, password, displayName);
-    navigate("/signin");
+    navigate('/signin');
   };
 
   // const handleFileChange = (e) => {
