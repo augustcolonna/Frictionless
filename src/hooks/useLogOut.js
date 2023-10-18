@@ -3,12 +3,13 @@ import { auth, db } from '../firebase/firebaseconfig';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { signOut } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 export const useLogOut = () => {
   const [isPending, setIsPending] = useState(false);
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const { dispatch, user } = useAuthContext();
 
   const logout = async () => {
@@ -27,6 +28,7 @@ export const useLogOut = () => {
     await signOut(auth)
       .then(() => {
         dispatch({ type: 'LOGOUT' });
+        navigate('/signin');
         if (!isCancelled) {
           setIsPending(false);
           setError(null);

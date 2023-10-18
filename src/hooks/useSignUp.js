@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { auth, db } from "../firebase/firebaseconfig";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { useState, useEffect } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { auth, db, storage } from '../firebase/firebaseconfig';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export const useSignUp = () => {
+  const [thumbnail, setThumbnail] = useState(null);
   const [error, setError] = useState(null);
   const [isCancelled, setIsCancelled] = useState(false);
   const [isPending, setIsPending] = useState(false);
@@ -15,33 +17,28 @@ export const useSignUp = () => {
     setIsPending(true);
     await createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        dispatch({ type: "LOGIN", paylod: res.user });
+        dispatch({ type: 'LOGIN', paylod: res.user });
         if (!isCancelled) {
           setIsPending(false);
           setError(null);
         }
         console.log(res.user);
         //upload user profile picture
-        // const uploadPath = `thumbnails/${auth.uid}/${thumbnail.name}`;
-        // const img = storage.ref(uploadPath).put(thumbnail);
-        // const imgUrl = img.ref.getDownloadURL();
+        const storageRef = ref(storage);
+        const imagesRef = ref(
+          storageRef,
+          `thumbnails/${auth.uid}/${thumbnail.name}`
+        );
+        const img = uploadBytes(imagesRef, thumbnail);
+
         updateProfile(res.user, {
           displayName: displayName,
           // photoURL: imgUrl,
         });
         const uid = res.user.uid;
-        // const userCollection = collection(db, "users");
-        const data = {
+        setDoc(doc(db, 'users', uid), {
           online: true,
           displayName,
-        };
-        // const ref = doc(userCollection, uid);
-        // setDoc(ref, {
-        //   data,
-        // });
-
-        setDoc(doc(db, "users", uid), {
-          data,
         });
       })
       .catch((error) => {
