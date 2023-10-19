@@ -9,37 +9,37 @@ function Signup() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState('');
-  // const [thumbnail, setThumbnail] = useState(null);
-  // const [thumbnailError, setThumbnailError] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+  const [thumbnailError, setThumbnailError] = useState(null);
   const { error, signUp, isPending } = useSignUp();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUp(email, password, displayName);
+    signUp(email, password, displayName, thumbnail);
     navigate('/signin');
   };
 
-  // const handleFileChange = (e) => {
-  //   setThumbnail(null);
-  //   let selected = e.target.files[0];
+  const handleFileChange = (e) => {
+    setThumbnail(null);
+    let selected = e.target.files[0];
 
-  //   if (!selected) {
-  //     setThumbnailError("please select a file");
-  //     return;
-  //   }
-  //   if (!selected.type.includes("image")) {
-  //     setThumbnailError("selected file must be an image");
-  //     return;
-  //   }
-  //   if (selected.size > 100000) {
-  //     setThumbnailError("file size must be less than 100kb");
-  //     return;
-  //   }
+    if (!selected) {
+      setThumbnailError('please select a file');
+      return;
+    }
+    if (!selected.type.includes('image')) {
+      setThumbnailError('selected file must be an image');
+      return;
+    }
+    if (selected.size > 100000) {
+      setThumbnailError('file size must be less than 100kb');
+      return;
+    }
 
-  //   setThumbnailError(null);
-  //   setThumbnail(selected);
-  //   console.log("thumbnail updated");
-  // };
+    setThumbnailError(null);
+    setThumbnail(selected);
+    console.log('thumbnail updated');
+  };
 
   return (
     <div>
@@ -72,11 +72,11 @@ function Signup() {
             value={displayName}
           />
         </label>
-        {/* <label>
+        <label>
           <span>Profile Picture</span>
           <input required type="file" onChange={handleFileChange} />
           {thumbnailError && <div className="error">{thumbnailError}</div>}
-        </label> */}
+        </label>
         {!isPending && <button className="btn">Sign Up</button>}
         {isPending && (
           <button className="btn" disabled>
