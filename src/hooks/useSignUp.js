@@ -3,12 +3,13 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { auth, db, storage } from '../firebase/firebaseconfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const useSignUp = () => {
   const [error, setError] = useState(null);
   const [isCancelled, setIsCancelled] = useState(false);
   const [isPending, setIsPending] = useState(false);
+
   const { dispatch } = useAuthContext();
 
   const signUp = async (email, password, displayName, thumbnail) => {
@@ -27,25 +28,25 @@ export const useSignUp = () => {
         if (thumbnail == null) {
           return;
         }
-
         const imageRef = ref(
           storage,
           `thumbnails/${res.user.uid}/${thumbnail.name}`
         );
         uploadBytes(imageRef, thumbnail)
           .then((snapshot) => {
-            console.log('uploaded');
+            console.log('updated thumbnail');
+            getDownloadURL(snapshot.ref).then((url) => {
+              console.log(url);
+              updateProfile(res.user, {
+                displayName: displayName,
+                photoURL: url,
+              });
+            });
           })
           .catch((error) => {
             console.log(error);
           });
-        // const imgUrl = getDownloadURL(imageRef);
-        // console.log(imgUrl);
 
-        updateProfile(res.user, {
-          displayName: displayName,
-          // photoURL: imgUrl,
-        });
         const uid = res.user.uid;
         const data = {
           online: false,
