@@ -34,9 +34,7 @@ export const useSignUp = () => {
         );
         uploadBytes(imageRef, thumbnail)
           .then((snapshot) => {
-            console.log('updated thumbnail');
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log(url);
               updateProfile(res.user, {
                 displayName: displayName,
                 photoURL: url,

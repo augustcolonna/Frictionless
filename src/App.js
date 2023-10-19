@@ -6,6 +6,7 @@ import Dashbord from './pages/Dashbord';
 import Project from './pages/Project';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import UserList from './components/UserList';
 
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -44,6 +45,7 @@ function App() {
               />
             </Routes>
           </div>
+          {user && <UserList />}
         </BrowserRouter>
       )}
     </div>
