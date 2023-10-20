@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import '../styles/create.css';
+import { useCollection } from '../hooks/useCollection';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Timestamp } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase/firebaseconfig';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   { value: 'development', label: 'Development' },
@@ -15,11 +21,63 @@ function Create() {
   const [dueDate, setDueDate] = useState('');
   const [category, setCategory] = useState('');
   const [assignedUsers, setAssignedUsers] = useState('');
+  const [formError, setFormError] = useState(null);
+  const [users, setUsers] = useState([]);
 
-  const handleSubmit = (e) => {
+  const { user } = useAuthContext();
+  const { documents } = useCollection('users');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, details, dueDate, category.value);
+    setFormError(null);
+
+    if (!category) {
+      setFormError('Please select a project category');
+      return;
+    }
+    if (assignedUsers.length < 1) {
+      setFormError('Please assign the project to at least one person');
+      return;
+    }
+
+    const createdBy = {
+      displayName: user.displayName,
+      id: user.uid,
+    };
+
+    const assignedUsersList = assignedUsers.map((user) => {
+      return {
+        displayName: user.value.data.displayName,
+        id: user.value.id,
+      };
+    });
+
+    const project = {
+      name,
+      details,
+      category: category.value,
+      dueDate: Timestamp.fromDate(new Date(dueDate)),
+      comments: [],
+      createdBy: createdBy,
+      assignedUsersList,
+    };
+
+    await addDoc(collection(db, 'projects'), {
+      project,
+    });
+
+    navigate('/');
   };
+
+  useEffect(() => {
+    if (documents) {
+      const options = documents.map((user) => {
+        return { value: user, label: user.data.displayName };
+      });
+      setUsers(options);
+    }
+  }, [documents]);
 
   return (
     <div className="create-form">
@@ -61,8 +119,14 @@ function Create() {
         </label>
         <label>
           <span>Assigned To</span>
+          <Select
+            onChange={(option) => setAssignedUsers(option)}
+            options={users}
+            isMulti
+          />
         </label>
         <button className="btn">Add Project</button>
+        {formError && <p className="error">{formError}</p>}
       </form>
     </div>
   );
