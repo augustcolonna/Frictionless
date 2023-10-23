@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useDocument } from '../hooks/useDocument';
 import ProjectSummary from '../components/ProjectSummary';
 import ProjectComments from '../components/ProjectComments';
-
 function Project() {
   const { id } = useParams();
   const { document, error } = useDocument('projects', id);
@@ -17,10 +16,15 @@ function Project() {
     return <div className="loading">loading documents...</div>;
   }
 
+  const handleUpdate = async (id) => {};
+
   return (
     <div className="project-details">
       <ProjectSummary project={document} />
-      <ProjectComments />
+      <ProjectComments project={document} />
+      <button className="btn" onClick={() => handleUpdate(document.id)}>
+        Update Project
+      </button>
     </div>
   );
 }

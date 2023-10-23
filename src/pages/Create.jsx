@@ -53,7 +53,17 @@ function Create() {
       };
     });
 
-    const project = {
+    // const project = {
+    //   name,
+    //   details,
+    //   category: category.value,
+    //   dueDate: Timestamp.fromDate(new Date(dueDate)),
+    //   comments: [],
+    //   createdBy: createdBy,
+    //   assignedUsersList,
+    // };
+
+    await addDoc(collection(db, 'projects'), {
       name,
       details,
       category: category.value,
@@ -61,10 +71,6 @@ function Create() {
       comments: [],
       createdBy: createdBy,
       assignedUsersList,
-    };
-
-    await addDoc(collection(db, 'projects'), {
-      project,
     });
 
     navigate('/');
