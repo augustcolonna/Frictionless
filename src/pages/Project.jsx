@@ -16,15 +16,10 @@ function Project() {
     return <div className="loading">loading documents...</div>;
   }
 
-  const handleUpdate = async (id) => {};
-
   return (
     <div className="project-details">
       <ProjectSummary project={document} />
       <ProjectComments project={document} />
-      <button className="btn" onClick={() => handleUpdate(document.id)}>
-        Update Project
-      </button>
     </div>
   );
 }
