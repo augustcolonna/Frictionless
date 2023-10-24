@@ -20,9 +20,9 @@ function Singin() {
   };
 
   return (
-    <div>
+    <div className="auth-container">
       {!isPending ? (
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form-signin" onSubmit={handleSubmit}>
           <h2>Login</h2>
           <label>
             <span>Email</span>

@@ -51,7 +51,7 @@ function Create() {
 
     const assignedUsersList = assignedUsers.map((user) => {
       return {
-        displayName: user.value.data.displayName,
+        displayName: user.value.displayName,
         id: user.value.id,
       };
     });
@@ -72,7 +72,7 @@ function Create() {
   useEffect(() => {
     if (documents) {
       const options = documents.map((user) => {
-        return { value: user, label: user.data.displayName };
+        return { value: user, label: user.displayName };
       });
       setUsers(options);
     }

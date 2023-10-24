@@ -17,7 +17,7 @@ function Navbar() {
       <ul>
         <li className="logo">
           <img src={Logo} alt="hi5-logo" />
-          <span>Hi 5 Box Gym</span>
+          <span>Hi5 Box</span>
         </li>
         {!user && (
           <li>

@@ -1,5 +1,6 @@
 //hooks
 import { useAuthContext } from './hooks/useAuthContext';
+
 //routing
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 //pages
@@ -8,13 +9,14 @@ import Signup from './pages/Signup';
 import Create from './pages/Create';
 import Dashbord from './pages/Dashbord';
 import Project from './pages/Project';
+import Profile from './pages/Profile';
 //components
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import UserList from './components/UserList';
+
 //styles
 import './styles/App.css';
-import WelcomePage from './pages/WelcomePage';
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -27,7 +29,6 @@ function App() {
           <div className="container">
             <Navbar />
             <Routes>
-              <Route path="/welcome" element={<WelcomePage />} />
               <Route
                 path="/signin"
                 element={user ? <Navigate to="/" /> : <Signin />}
@@ -38,15 +39,19 @@ function App() {
               />
               <Route
                 path="/create"
-                element={user ? <Create /> : <Navigate to="/welcome" />}
+                element={user ? <Create /> : <Navigate to="/signin" />}
               />
               <Route
                 path="/"
-                element={user ? <Dashbord /> : <Navigate to="/welcome" />}
+                element={user ? <Dashbord /> : <Navigate to="/signin" />}
+              />
+              <Route
+                path="/profile/:id"
+                element={user ? <Profile /> : <Navigate to="/signin" />}
               />
               <Route
                 path="/projects/:id"
-                element={user ? <Project /> : <Navigate to="/welcome" />}
+                element={user ? <Project /> : <Navigate to="/signin" />}
               />
             </Routes>
           </div>

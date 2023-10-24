@@ -49,8 +49,8 @@ function Signup() {
   };
 
   return (
-    <div>
-      <form className="auth-form" onSubmit={handleSubmit}>
+    <div className="auth-container">
+      <form className="auth-form-signup" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <label>
           <span>Email</span>
