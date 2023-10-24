@@ -1,7 +1,9 @@
-import React from 'react';
+//hooks
 import { useState } from 'react';
 import { useLogIn } from '../hooks/useLogIn';
 import { useNavigate } from 'react-router-dom';
+//styles
+//see signup.css sheet for .auth-form
 
 function Singin() {
   const [email, setEmail] = useState('');

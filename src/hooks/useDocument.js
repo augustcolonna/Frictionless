@@ -1,7 +1,7 @@
+//react hooks
 import { useEffect, useState } from 'react';
 // firebase import
 import { doc, onSnapshot } from 'firebase/firestore';
-
 import { db } from '../firebase/firebaseconfig';
 
 export const useDocument = (c, id) => {

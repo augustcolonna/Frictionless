@@ -1,12 +1,15 @@
+//hooks and react components
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
-import '../styles/create.css';
 import { useCollection } from '../hooks/useCollection';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+//styles
+import '../styles/create.css';
+//firebase functions
 import { Timestamp } from 'firebase/firestore';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseconfig';
-import { useNavigate } from 'react-router-dom';
 
 const categories = [
   { value: 'development', label: 'Development' },
@@ -53,16 +56,6 @@ function Create() {
       };
     });
 
-    // const project = {
-    //   name,
-    //   details,
-    //   category: category.value,
-    //   dueDate: Timestamp.fromDate(new Date(dueDate)),
-    //   comments: [],
-    //   createdBy: createdBy,
-    //   assignedUsersList,
-    // };
-
     await addDoc(collection(db, 'projects'), {
       name,
       details,
@@ -86,7 +79,7 @@ function Create() {
   }, [documents]);
 
   return (
-    <div className="create-form">
+    <div className="create-proj-form">
       <h2 className="page-title">Create a new project</h2>
       <form onSubmit={handleSubmit}>
         <label>

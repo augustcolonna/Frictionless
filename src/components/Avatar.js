@@ -1,4 +1,4 @@
-import React from 'react';
+//styles
 import '../styles/avatar.css';
 
 function Avatar({ src }) {

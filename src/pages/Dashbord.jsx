@@ -1,9 +1,11 @@
-import React from 'react';
+//hooks
 import { useState } from 'react';
 import { useCollection } from '../hooks/useCollection';
 import { useAuthContext } from '../hooks/useAuthContext';
+//components
 import ProjectList from '../components/ProjectList';
 import ProjectFilter from '../components/ProjectFilter';
+//styles
 import '../styles/dashboard.css';
 
 function Dashbord() {

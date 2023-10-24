@@ -1,3 +1,5 @@
-.create-form {
+.create-proj-form {
   max-width: 600px;
+  max-height: 80%;
+  margin-bottom: 50px;
 }

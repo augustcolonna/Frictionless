@@ -1,9 +1,13 @@
-import React from 'react';
+//hooks
 import { useState } from 'react';
+//firebase imports
 import { Timestamp, doc, updateDoc } from 'firebase/firestore';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { v4 } from 'uuid';
 import { db } from '../firebase/firebaseconfig';
+//misc.
+import { v4 } from 'uuid';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+//styles
 import '../styles/project.css';
 
 function ProjectComments({ project }) {
@@ -40,12 +44,13 @@ function ProjectComments({ project }) {
           project.comments.map((comment) => {
             return (
               <li key={comment.id}>
-                <div className="comment-author">
-                  {comment.displayName}
-                  {/* <p className="comment-date"> {comment.createdAt}</p> */}
-                </div>
+                <div className="comment-author">{comment.displayName}</div>
                 <div className="comment-date">
-                  <p>date here</p>
+                  <p>
+                    {formatDistanceToNow(comment.createdAt.toDate(), {
+                      addSuffix: true,
+                    })}
+                  </p>
                 </div>
                 <div className="comment-content">
                   <p>{comment.content}</p>

@@ -1,9 +1,14 @@
+//hooks
+import { useAuthContext } from '../hooks/useAuthContext';
+//components
+import Avatar from './Avatar';
+//routing
 import { NavLink } from 'react-router-dom';
+//misc.
 import DashboardIcon from '../assets/dashboard_icon.svg';
 import AddIcon from '../assets/add_icon.svg';
-import Avatar from './Avatar';
+//styles
 import '../styles/sidebar.css';
-import { useAuthContext } from '../hooks/useAuthContext';
 
 export default function Sidebar() {
   const { user } = useAuthContext();

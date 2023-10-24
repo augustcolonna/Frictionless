@@ -1,9 +1,11 @@
+//hooks
 import { useState, useEffect } from 'react';
-import { auth, db } from '../firebase/firebaseconfig';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { signOut } from 'firebase/auth';
-import { updateDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+//firebase imports
+import { auth, db } from '../firebase/firebaseconfig';
+import { updateDoc, doc } from 'firebase/firestore';
+import { signOut } from 'firebase/auth';
 
 export const useLogOut = () => {
   const [isPending, setIsPending] = useState(false);
@@ -19,11 +21,11 @@ export const useLogOut = () => {
     //update online status
     const { uid } = user;
     const updateLogOut = doc(db, 'users', uid);
-    const data = {
-      'online': false,
-      'displayName': user.displayName,
-    };
-    await updateDoc(updateLogOut, { data });
+
+    await updateDoc(updateLogOut, {
+      online: false,
+      displayName: user.displayName,
+    });
 
     await signOut(auth)
       .then(() => {

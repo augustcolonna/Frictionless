@@ -1,8 +1,10 @@
-import React from 'react';
-import { db } from '../firebase/firebaseconfig';
-import { doc, deleteDoc } from 'firebase/firestore';
+//hooks
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+//firebase imports
+import { db } from '../firebase/firebaseconfig';
+import { doc, deleteDoc } from 'firebase/firestore';
+//styles
 import '../styles/project.css';
 
 function ProjectSummary({ project }) {

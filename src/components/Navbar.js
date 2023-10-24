@@ -1,8 +1,12 @@
-import Temple from '../assets/temple.svg';
-import { Link } from 'react-router-dom';
-import '../styles/navbar.css';
+//hooks
 import { useLogOut } from '../hooks/useLogOut';
 import { useAuthContext } from '../hooks/useAuthContext';
+//routing
+import { Link } from 'react-router-dom';
+//misc.
+import Logo from '../assets/hi5Boxbig.png';
+//styles
+import '../styles/navbar.css';
 
 function Navbar() {
   const { user } = useAuthContext();
@@ -12,8 +16,8 @@ function Navbar() {
     <div className="navbar">
       <ul>
         <li className="logo">
-          <img src={Temple} alt="dojo-logo" />
-          <span>The Dojo</span>
+          <img src={Logo} alt="hi5-logo" />
+          <span>Hi 5 Box Gym</span>
         </li>
         {!user && (
           <li>

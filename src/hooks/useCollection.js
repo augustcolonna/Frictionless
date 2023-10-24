@@ -1,7 +1,8 @@
+//react hooks and functions
 import { useEffect, useState, useRef } from 'react';
-import { db } from '../firebase/firebaseconfig';
 //firebase imports
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
+import { db } from '../firebase/firebaseconfig';
 
 export const useCollection = (anyCollection, _q) => {
   const [documents, setDocuments] = useState(null);

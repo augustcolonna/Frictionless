@@ -1,5 +1,7 @@
+//hooks
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+//firebase imports
 import { auth, db, storage } from '../firebase/firebaseconfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
@@ -12,7 +14,13 @@ export const useSignUp = () => {
 
   const { dispatch } = useAuthContext();
 
-  const signUp = async (email, password, displayName, thumbnail) => {
+  const signUp = async (
+    email,
+    password,
+    displayName,
+    thumbnail,
+    createAddress
+  ) => {
     setError(null);
     setIsPending(true);
 
@@ -46,12 +54,10 @@ export const useSignUp = () => {
           });
 
         const uid = res.user.uid;
-        const data = {
+        setDoc(doc(db, 'users', uid), {
           online: false,
           displayName,
-        };
-        setDoc(doc(db, 'users', uid), {
-          data,
+          address: createAddress,
         });
       })
       .catch((error) => {
@@ -69,6 +75,3 @@ export const useSignUp = () => {
 
   return { error, signUp, isPending };
 };
-
-//import this into the signup page
-//it will be handled in the handleSubmit function for the form

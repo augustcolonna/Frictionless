@@ -1,21 +1,28 @@
-import React from 'react';
+//hooks
 import { useState } from 'react';
 import { useSignUp } from '../hooks/useSignUp';
 import { useNavigate } from 'react-router-dom';
+//styles
 import '../styles/signup.css';
 
 function Signup() {
+  //states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const [displayName, setDisplayName] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailError, setThumbnailError] = useState(null);
+  const [streetAndNumber, setStreetAndNumber] = useState('');
+  const [cityAndCountry, setCityAndCountry] = useState('');
+  const [postal, setPostal] = useState('');
+  //hooks
   const { error, signUp, isPending } = useSignUp();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUp(email, password, displayName, thumbnail);
+    const createAddress = [streetAndNumber, cityAndCountry, postal];
+    signUp(email, password, displayName, thumbnail, createAddress);
     navigate('/signin');
   };
 
@@ -72,6 +79,31 @@ function Signup() {
             value={displayName}
           />
         </label>
+        <label>
+          <span>Address</span>
+          <input
+            required
+            type="text"
+            onChange={(e) => setStreetAndNumber(e.target.value)}
+            value={streetAndNumber}
+            placeholder="street and housenumber"
+          />
+          <input
+            required
+            type="text"
+            onChange={(e) => setCityAndCountry(e.target.value)}
+            value={cityAndCountry}
+            placeholder="city and country"
+          />
+          <input
+            required
+            type="text"
+            onChange={(e) => setPostal(e.target.value)}
+            value={postal}
+            placeholder="postal"
+          />
+        </label>
+
         <label>
           <span>Profile Picture</span>
           <input required type="file" onChange={handleFileChange} />

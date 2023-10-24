@@ -1,5 +1,6 @@
-import React from 'react';
+//misc.
 import { Link } from 'react-router-dom';
+//styles
 import '../styles/projectlist.css';
 
 function ProjectList({ projects }) {

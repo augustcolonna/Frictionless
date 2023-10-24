@@ -1,5 +1,7 @@
+//hooks
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+//firebase imports
 import { auth, db } from '../firebase/firebaseconfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
@@ -20,11 +22,13 @@ export const useLogIn = () => {
           setError(null);
         }
         const updateLogIn = doc(db, 'users', userCredential.user.uid);
-        const data = {
-          'online': true,
-          'displayName': userCredential.user.displayName,
-        };
-        updateDoc(updateLogIn, { data });
+        // const data = {
+        //   'online': true,
+        //   'displayName': userCredential.user.displayName,
+        // };
+        updateDoc(updateLogIn, {
+          online: true,
+        });
       })
       .catch((error) => {
         if (!isCancelled) {

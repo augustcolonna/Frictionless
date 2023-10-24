@@ -1,12 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* color themes:
+light greeen: #3D703A
+Dark Green: #1B2A23
+Sea Green: #223A31
+Light Sea Green: #447463
+Logo Green: #4F9C40
+Electric White: #EEEDED
+Black: #000000 */
 
 /* variables */
 :root {
   --heading-color: #444;
   --text-color: #999;
-  --primary-color: #8d69f1;
+  --primary-color: #4f9c40;
   --highlight-color: #d13267;
-  --bg-color: #f4f4f4;
+  --bg-color: #eeeded;
 }
 
 /* base styles */
