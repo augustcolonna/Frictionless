@@ -1,9 +1,6 @@
 //hooks
 import { useAuthContext } from '../hooks/useAuthContext';
-import { useLogOut } from '../hooks/useLogOut';
-
 //components
-
 //routing
 import { NavLink } from 'react-router-dom';
 //misc.
@@ -14,16 +11,14 @@ import UserList from './UserList';
 import Logo from '../assets/hi5Boxbig.png';
 //styles
 import '../styles/sidebar.css';
-import { useState } from 'react';
 
 export default function Sidebar() {
-  const [isClicked, setIsClicked] = useState(false);
   const { user } = useAuthContext();
-  const { logout, isPending } = useLogOut();
 
-  const toggleClicked = () => {
-    setIsClicked(!isClicked);
-  };
+  // const toggleClicked = () => {
+  //   setIsClicked(!isClicked);
+  //   console.log(isClicked);
+  // };
 
   return (
     <div className="sidebar">
@@ -38,19 +33,9 @@ export default function Sidebar() {
         <nav className="links">
           <ul>
             <li>
-              <NavLink to={`/profile/${user.uid}`} onClick={toggleClicked}>
+              <NavLink to={`/profile/${user.uid}`}>
                 <img src={ProfileIcon} alt="profile icon" />
                 <span>Profile</span>
-                {isClicked && user && !isPending && (
-                  <button className={'active'} onClick={logout}>
-                    Logout
-                  </button>
-                )}
-                {isClicked && user && isPending && (
-                  <button className="btn" disabled>
-                    Logging Out...
-                  </button>
-                )}
               </NavLink>
             </li>
             <li>

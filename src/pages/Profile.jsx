@@ -2,6 +2,8 @@
 import { useParams } from 'react-router-dom';
 import { useDocument } from '../hooks/useDocument';
 import { useState } from 'react';
+import { useLogOut } from '../hooks/useLogOut';
+import { useAuthContext } from '../hooks/useAuthContext';
 //components
 import ProfileInformaton from '../components/ProfileInformaton';
 //styles
@@ -11,6 +13,8 @@ import UpdateProfile from '../components/UpdateProfile';
 function Profile() {
   const { id } = useParams();
   const { document, error } = useDocument('users', id);
+  const { logout, isPending } = useLogOut();
+  const { user } = useAuthContext();
 
   const [toggleUpdateProfile, setToggleUpdateProfile] = useState(false);
 
@@ -35,6 +39,16 @@ function Profile() {
       {toggleUpdateProfile && <UpdateProfile profile={document} />}
 
       {!toggleUpdateProfile && <ProfileInformaton profile={document} />}
+      {user && !isPending && (
+        <button className="btn" onClick={logout}>
+          Logout
+        </button>
+      )}
+      {user && isPending && (
+        <button className="btn" disabled>
+          Logging Out...
+        </button>
+      )}
     </div>
   );
 }

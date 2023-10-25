@@ -32,6 +32,7 @@
   width: 100%;
   color: #fff;
   box-sizing: border-box;
+  align-items: center;
 }
 .sidebar .links img {
   margin-right: 10px;
@@ -42,10 +43,21 @@
   background: var(--bg-color);
   border-radius: 20px 0 0 20px;
 }
+
+.sidebar .links .btn {
+  margin-left: 20px;
+  font-size: 0.6em;
+}
+
 .sidebar .links .active img {
   filter: invert(40%);
 }
 
 .logo img {
   width: 200px;
+  border-radius: 5px;
 }
+
+/* .hide-btn {
+  display: none;
+} */
