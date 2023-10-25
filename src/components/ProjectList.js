@@ -13,11 +13,16 @@ function ProjectList({ projects }) {
           return (
             <Link to={`/projects/${project.id}`} key={project.id}>
               <h4>{project.name}</h4>
+              <p>{project.category}</p>
               <p>Due by {project.dueDate.toDate().toDateString()}</p>
               <div className="assigned-to">
                 <ul>
                   {project.assignedUsersList.map((user) => {
-                    return <li key={user.id}>{user.displayName}</li>;
+                    return (
+                      <li className="assigned-user" key={user.id}>
+                        {user.displayName}
+                      </li>
+                    );
                   })}
                 </ul>
               </div>

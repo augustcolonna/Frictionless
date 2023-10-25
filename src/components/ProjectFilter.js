@@ -1,4 +1,13 @@
-const filters = ['all', 'mine', 'development', 'marketing', 'sales', 'design'];
+const filters = [
+  'all',
+  'mine',
+  'operations',
+  'marketing',
+  'fitness',
+  'football',
+  'synthetikeis',
+  'clients',
+];
 
 function ProjectFilter({ currentFilter, changeFilter }) {
   //lifting the state up to the dashboard component for currentFilter

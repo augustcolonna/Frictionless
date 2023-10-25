@@ -17,7 +17,7 @@ function ProjectSummary({ project }) {
     navigate('/');
   };
 
-  const handleUpdate = async (id) => {};
+  // const handleUpdate = async (id) => {};
 
   return (
     <div>
@@ -33,7 +33,7 @@ function ProjectSummary({ project }) {
           {project.assignedUsersList.map((user) => {
             return (
               <div key={user.id}>
-                <p>{user.displayName}</p>
+                <p className="assigned-user">{user.displayName}</p>
               </div>
             );
           })}
@@ -45,14 +45,14 @@ function ProjectSummary({ project }) {
             className="crud-buttons btn"
             onClick={() => handleDelete(project.id)}
           >
-            Delete Project
+            Complete Project
           </button>
-          <button
+          {/* <button
             className="crud-buttons btn"
             onClick={() => handleUpdate(document.id)}
           >
             Update Project
-          </button>
+          </button> */}
         </div>
       )}
     </div>

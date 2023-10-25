@@ -12,10 +12,12 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseconfig';
 
 const categories = [
-  { value: 'development', label: 'Development' },
-  { value: 'design', label: 'Design' },
-  { value: 'sales', label: 'Sales' },
+  { value: 'synthetikeis', label: 'Synthetikeis' },
+  { value: 'football', label: 'Football' },
+  { value: 'fitness', label: 'Fitness' },
+  { value: 'operations', label: 'Operations' },
   { value: 'marketing', label: 'Marketing' },
+  { value: 'clients', label: 'Clients' },
 ];
 
 function Create() {

@@ -26,10 +26,10 @@ function Profile() {
   if (error) {
     return <p className="error">{error}</p>;
   }
-
   if (!document) {
     return <div className="loading">loading profile...</div>;
   }
+
   return (
     <div className="profile-info">
       <h2>Profile Information</h2>

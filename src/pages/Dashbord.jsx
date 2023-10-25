@@ -30,10 +30,12 @@ function Dashbord() {
               }
             });
             return assignedToMe;
-          case 'development':
-          case 'design':
-          case 'sales':
+          case 'clients':
+          case 'football':
+          case 'synthetikeis':
           case 'marketing':
+          case 'operations':
+          case 'fitness':
             return document.category === currentFilter;
           default:
             return true;

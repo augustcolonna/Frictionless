@@ -81,3 +81,10 @@
 .crud-buttons {
   margin: 10px;
 }
+
+.assigned-user {
+  padding: 5px;
+  border: 1px solid var(--bg-color);
+  border-radius: 5px;
+  margin: 4px;
+}

@@ -1,6 +1,8 @@
 //hooks
 import { useCollection } from '../hooks/useCollection';
 import { useState } from 'react';
+//routing
+
 //components
 // import Avatar from './Avatar';
 //styles
@@ -28,6 +30,7 @@ function UserList() {
                   {user.online && <span className="online-user"></span>}
                   {!user.online && <span className="offline-user"></span>}
                   <span>{user.displayName}</span>
+
                   {/* <Avatar src={user.data.photoURL} /> */}
                 </div>
               );
