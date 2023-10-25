@@ -45,3 +45,7 @@
 .sidebar .links .active img {
   filter: invert(40%);
 }
+
+.logo img {
+  width: 200px;
+}

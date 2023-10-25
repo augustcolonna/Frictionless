@@ -10,12 +10,28 @@ Electric White: #EEEDED
 Black: #000000 */
 
 /* variables */
+body,
+html,
+.App,
 :root {
   --heading-color: #444;
   --text-color: #999;
   --primary-color: #4f9c40;
   --highlight-color: #d13267;
   --bg-color: #eeeded;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  min-width: 100vw;
+}
+
+.App {
+  display: flex;
+}
+
+.App .container {
+  flex-grow: 1;
+  padding: 0 60px;
 }
 
 /* base styles */

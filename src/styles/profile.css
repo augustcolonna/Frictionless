@@ -1,0 +1,35 @@
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info .btn {
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.profile-picture {
+  width: 200px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.profile-info h2 {
+  margin-bottom: 30px;
+  font-weight: bold;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.general-information {
+  display: flex;
+  flex-direction: column;
+}
+
+.general-information p {
+  margin: 10px;
+}
+
+.general-information p span {
+  font-weight: bold;
+  margin-right: 10px;
+}

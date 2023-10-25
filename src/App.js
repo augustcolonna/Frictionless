@@ -13,10 +13,9 @@ import Profile from './pages/Profile';
 //components
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import UserList from './components/UserList';
 
 //styles
-import './styles/App.css';
+import './styles/index.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -27,7 +26,7 @@ function App() {
         <BrowserRouter>
           {user && <Sidebar />}
           <div className="container">
-            <Navbar />
+            {!user && <Navbar />}
             <Routes>
               <Route
                 path="/signin"
@@ -55,7 +54,6 @@ function App() {
               />
             </Routes>
           </div>
-          {user && <UserList />}
         </BrowserRouter>
       )}
     </div>

@@ -1,13 +1,27 @@
 import { useAuthContext } from '../hooks/useAuthContext';
 
+import '../styles/profile.css';
+
 function ProfileInformaton({ profile }) {
   const { user } = useAuthContext();
 
   return (
     <div className="general-information">
-      <h2>Profile Information</h2>
-      <p>Display Name {profile.displayName}</p>
-      <img src={user.photoURL} alt="user profile" />
+      <img className="profile-picture" src={user.photoURL} alt="user profile" />
+      <p>
+        <span>Display Name:</span> {profile.displayName}
+      </p>
+      <p>
+        <span>Address:</span>
+        {profile.address[0] +
+          ' ' +
+          profile.address[1] +
+          ' ' +
+          profile.address[2]}
+      </p>
+      <ul>
+        <li>{}</li>
+      </ul>
     </div>
   );
 }
